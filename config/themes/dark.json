@@ -1,0 +1,66 @@
+{
+  "global": {
+    "colors": {
+      "primary": "#71a2ff",
+      "secondary": "#94a3b8",
+      "success": "#4fc97f",
+      "danger": "#ff7a84",
+      "surface": "#131c2b",
+      "text": "#e8edf7",
+      "border": "#2a3952"
+    },
+    "typography": {
+      "fontSizeBase": "16px",
+      "fontSizeSm": "14px",
+      "fontSizeLg": "20px",
+      "fontWeightRegular": "400",
+      "fontWeightMedium": "500",
+      "fontWeightBold": "700"
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "24px"
+    },
+    "radius": {
+      "sm": "10px",
+      "md": "16px",
+      "lg": "24px"
+    },
+    "shadow": {
+      "sm": "0 2px 8px rgba(2, 8, 23, 0.42)",
+      "md": "0 16px 40px rgba(2, 8, 23, 0.5)",
+      "lg": "0 24px 60px rgba(0, 0, 0, 0.55)"
+    }
+  },
+  "button": {
+    "borderRadius": "10px",
+    "padding": "10px 16px",
+    "background": "#71a2ff",
+    "textColor": "#0f1723",
+    "fontSize": "14px",
+    "fontWeight": "700"
+  },
+  "card": {
+    "borderRadius": "32px",
+    "shadow": "0 16px 40px rgba(2, 8, 23, 0.5)",
+    "padding": "16px 24px",
+    "backgroundTop": "#172132",
+    "backgroundBottom": "#121b2a"
+  },
+  "table": {
+    "headerBg": "#172233",
+    "rowHover": "#1a2638",
+    "borderColor": "#2a3952"
+  },
+  "form": {
+    "inputBorderRadius": "10px",
+    "inputPadding": "10px 12px",
+    "inputBg": "#1a2538"
+  },
+  "layout": {
+    "containerMaxWidth": "1320px"
+  }
+}

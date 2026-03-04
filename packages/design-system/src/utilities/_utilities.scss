@@ -1,0 +1,37 @@
+.ds-mb-1 { margin-bottom: var(--ds-space-1); }
+.ds-mb-2 { margin-bottom: var(--ds-space-2); }
+.ds-mb-3 { margin-bottom: var(--ds-space-3); }
+.ds-mb-4 { margin-bottom: var(--ds-space-4); }
+.ds-mb-5 { margin-bottom: var(--ds-space-5); }
+.ds-mb-6 { margin-bottom: var(--ds-space-6); }
+.ds-p-4 { padding: var(--ds-space-4); }
+.ds-p-5 { padding: var(--ds-space-5); }
+.ds-flex { display: flex; }
+.ds-align-center { align-items: center; }
+.ds-justify-between { justify-content: space-between; }
+.ds-stack { display: grid; gap: 1rem; }
+.ds-text-muted { color: var(--ds-text-muted); }
+.ds-title-sm { font-size: 1rem; font-weight: 700; }
+.ds-title-lg { font-size: clamp(2rem, 3vw, 2.6rem); }
+.ds-kpi { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
+.ds-hero { padding: 2.4rem 0 1.4rem; }
+.ds-shell { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+
+.ds-nav {
+  border-bottom: 1px solid var(--ds-border);
+  background: var(--ds-nav-bg);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ds-nav-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.ds-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 800; }
+.ds-brand-mark { width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg, var(--ds-primary), var(--ds-accent)); box-shadow: var(--ds-shadow-sm); }
+.ds-nav-links { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.ds-nav-link { display: inline-flex; padding: 0.45rem 0.72rem; border-radius: 0.55rem; border: 1px solid transparent; font-weight: 600; color: var(--ds-nav-link); transition: 0.2s ease; }
+.ds-nav-link:hover { border-color: var(--ds-border); background: var(--ds-nav-link-hover-bg); color: var(--ds-nav-link-hover-text); }
+.ds-main { padding-bottom: 2rem; }
+.ds-grid-gap { row-gap: 1rem; }
+.ds-chip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.28rem 0.65rem; border-radius: 999px; border: 1px solid var(--ds-chip-border); color: var(--ds-chip-text); background: var(--ds-chip-bg); font-size: 0.78rem; font-weight: 700; }

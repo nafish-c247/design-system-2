@@ -1,0 +1,102 @@
+@use "../foundations/mixins" as mixins;
+
+.ds-card {
+  background: linear-gradient(180deg, var(--ds-card-top) 0%, var(--ds-card-bottom) 100%);
+  @include mixins.ds-panel-border;
+  border-radius: var(--ds-card-radius);
+  box-shadow: var(--ds-card-shadow);
+  @include mixins.ds-transition(transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease);
+}
+
+.ds-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ds-shadow-md);
+}
+
+.ds-card-header,
+.ds-card-body,
+.ds-card-footer { padding: var(--ds-card-padding-y) var(--ds-card-padding-x); }
+.ds-card-header { border-bottom: 1px solid var(--ds-border); }
+.ds-card-footer { border-top: 1px solid var(--ds-border); }
+
+.ds-btn {
+  border: 1px solid transparent;
+  border-radius: var(--ds-button-radius);
+  padding: var(--ds-button-padding);
+  font-size: var(--ds-button-font-size);
+  font-weight: var(--ds-button-font-weight);
+  cursor: pointer;
+  @include mixins.ds-transition(transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease);
+}
+
+.ds-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ds-btn:not(:disabled):hover { transform: translateY(-1px); }
+.ds-btn-primary { background: var(--ds-button-bg); color: var(--ds-button-text); box-shadow: 0 8px 20px color-mix(in srgb, var(--ds-button-bg) 35%, transparent); display: inline-block; }
+.ds-btn-primary:hover { background: color-mix(in srgb, var(--ds-button-bg) 85%, #000); }
+.ds-btn-outline { background: var(--ds-surface); color: var(--ds-primary); border-color: color-mix(in srgb, var(--ds-primary) 35%, var(--ds-border)); }
+.ds-btn-outline:hover { background: var(--ds-surface-alt); }
+.ds-btn-ghost { background: var(--ds-surface-alt); color: var(--ds-text); }
+
+.ds-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.22rem 0.58rem; font-size: var(--ds-font-size-sm); font-weight: var(--ds-font-weight-bold); border: 1px solid transparent; }
+.ds-badge-success { background: color-mix(in srgb, var(--ds-success) 20%, transparent); color: var(--ds-success); }
+.ds-badge-warning { background: color-mix(in srgb, var(--ds-warning) 20%, transparent); color: var(--ds-warning); }
+.ds-badge-danger { background: color-mix(in srgb, var(--ds-danger) 20%, transparent); color: var(--ds-danger); }
+.ds-badge-info { background: color-mix(in srgb, var(--ds-info) 20%, transparent); color: var(--ds-info); }
+
+.ds-table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--ds-table-border-color); border-radius: 12px; }
+.ds-table { width: 100%; border-collapse: collapse; min-width: 620px; background: var(--ds-surface); }
+.ds-table th,
+.ds-table td { text-align: left; padding: 0.85rem; border-bottom: 1px solid var(--ds-table-border-color); }
+.ds-table tbody tr:hover { background: var(--ds-table-row-hover); }
+.ds-table th { color: var(--ds-text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--ds-table-head-bg); }
+
+.ds-select {
+  width: 100%;
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-input-radius);
+  background: var(--ds-input-bg);
+  color: var(--ds-text);
+  padding: var(--ds-input-padding);
+  font-size: var(--ds-font-size-base);
+}
+.ds-select:focus { @include mixins.ds-focus-ring; }
+
+.ds-pagination { display: inline-flex; gap: 0.4rem; align-items: center; }
+.ds-pagination button { min-width: 2.1rem; height: 2.1rem; border-radius: var(--ds-radius-sm); border: 1px solid var(--ds-border); background: var(--ds-surface); color: var(--ds-text); cursor: pointer; }
+.ds-pagination button[aria-current="true"] { background: var(--ds-primary); border-color: var(--ds-primary); color: #fff; }
+
+.ds-accordion-item { border-bottom: 1px solid var(--ds-border); }
+.ds-accordion-trigger { width: 100%; text-align: left; border: 0; background: transparent; padding: 0.95rem 0; font-weight: var(--ds-font-weight-bold); cursor: pointer; color: var(--ds-text); }
+.ds-accordion-panel { padding: 0 0 0.95rem; color: var(--ds-text-muted); }
+
+.ds-tooltip { position: relative; display: inline-flex; }
+.ds-tooltip-bubble { pointer-events: none; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); background: var(--ds-text); color: var(--ds-surface); font-size: 0.75rem; padding: 0.36rem 0.52rem; border-radius: 0.45rem; white-space: nowrap; opacity: 0; transition: opacity 0.2s ease; }
+.ds-tooltip:hover .ds-tooltip-bubble { opacity: 1; }
+
+.ds-alert { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; border: 1px solid; border-radius: var(--ds-radius-md); padding: 0.95rem 1rem; box-shadow: var(--ds-shadow-sm); }
+.ds-alert-info { background: color-mix(in srgb, var(--ds-info) 16%, transparent); border-color: color-mix(in srgb, var(--ds-info) 45%, transparent); color: var(--ds-info); }
+.ds-alert-success { background: color-mix(in srgb, var(--ds-success) 16%, transparent); border-color: color-mix(in srgb, var(--ds-success) 45%, transparent); color: var(--ds-success); }
+.ds-alert-warning { background: color-mix(in srgb, var(--ds-warning) 16%, transparent); border-color: color-mix(in srgb, var(--ds-warning) 45%, transparent); color: var(--ds-warning); }
+.ds-alert-danger { background: color-mix(in srgb, var(--ds-danger) 16%, transparent); border-color: color-mix(in srgb, var(--ds-danger) 45%, transparent); color: var(--ds-danger); }
+
+.ds-modal-overlay { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(10, 28, 48, 0.48); padding: 1rem; z-index: 999; }
+.ds-modal { width: min(620px, 100%); background: var(--ds-surface-elevated); border-radius: var(--ds-radius-lg); border: 1px solid var(--ds-border); box-shadow: var(--ds-shadow-lg); }
+.ds-modal-header,
+.ds-modal-body,
+.ds-modal-footer { padding: 1.1rem 1.3rem; }
+.ds-modal-header { border-bottom: 1px solid var(--ds-border); }
+.ds-modal-footer { border-top: 1px solid var(--ds-border); display: flex; justify-content: flex-end; gap: 0.6rem; }
+
+input[type="color"],
+input[type="text"],
+textarea {
+  width: 100%;
+  min-height: 40px;
+  border-radius: var(--ds-input-radius);
+  border: 1px solid var(--ds-border);
+  background: var(--ds-input-bg);
+  color: var(--ds-text);
+  padding: 0.45rem 0.6rem;
+}
+
+input[type="range"] { width: 100%; accent-color: var(--ds-primary); }

@@ -1,0 +1,9 @@
+{
+  "themes": {
+    "default": "./themes/default.json",
+    "dark": "./themes/dark.json",
+    "corporate": "./themes/corporate.json",
+    "clientA": "./themes/clientA.json"
+  },
+  "activeTheme": "clientA"
+}

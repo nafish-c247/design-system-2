@@ -1,0 +1,87 @@
+:root {
+  --ds-bg: #f2f6fb;
+  --ds-bg-grad-1: rgba(52, 130, 246, 0.16);
+  --ds-bg-grad-2: rgba(12, 176, 149, 0.14);
+  --ds-bg-grad-3: #edf3fa;
+  --ds-surface: #ffffff;
+  --ds-surface-alt: #eef3fb;
+  --ds-surface-elevated: #ffffff;
+  --ds-text: #132238;
+  --ds-text-muted: #5b6a80;
+  --ds-border: #d8e2f0;
+  --ds-primary: #1161c6;
+  --ds-primary-strong: #0b4eaa;
+  --ds-secondary: #64748b;
+  --ds-accent: #0f9d88;
+  --ds-success: #1f8a4d;
+  --ds-warning: #c17a11;
+  --ds-danger: #bb2d3b;
+  --ds-info: #1d6fbf;
+  --ds-card-top: #ffffff;
+  --ds-card-bottom: #fbfdff;
+  --ds-nav-bg: rgba(255, 255, 255, 0.75);
+  --ds-nav-link: #26415e;
+  --ds-nav-link-hover-bg: #ffffff;
+  --ds-nav-link-hover-text: #132238;
+  --ds-chip-bg: #eef4ff;
+  --ds-chip-border: #cfe0f8;
+  --ds-chip-text: #234870;
+  --ds-table-head-bg: #f9fbfe;
+  --ds-table-row-hover: #f7faff;
+  --ds-table-border-color: #d8e2f0;
+  --ds-focus-ring: #cbe0ff;
+  --ds-radius-sm: 10px;
+  --ds-radius-md: 16px;
+  --ds-radius-lg: 24px;
+  --ds-shadow-sm: 0 2px 8px rgba(15, 38, 67, 0.08);
+  --ds-shadow-md: 0 16px 40px rgba(11, 36, 66, 0.12);
+  --ds-shadow-lg: 0 24px 60px rgba(7, 24, 44, 0.16);
+  --ds-gutter-x: 1.5rem;
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.5rem;
+  --ds-space-6: 2rem;
+  --ds-font-size-base: 16px;
+  --ds-font-size-sm: 14px;
+  --ds-font-size-lg: 20px;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-bold: 700;
+  --ds-button-radius: 10px;
+  --ds-button-padding: 10px 16px;
+  --ds-button-bg: #1161c6;
+  --ds-button-text: #ffffff;
+  --ds-button-font-size: 14px;
+  --ds-button-font-weight: 700;
+  --ds-card-radius: 16px;
+  --ds-card-shadow: 0 16px 40px rgba(11, 36, 66, 0.12);
+  --ds-card-padding-y: 16px;
+  --ds-card-padding-x: 24px;
+  --ds-input-radius: 10px;
+  --ds-input-padding: 10px 12px;
+  --ds-input-bg: #ffffff;
+  --ds-container-max-width: 1320px;
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 0%, var(--ds-bg-grad-1) 0, transparent 32%),
+    radial-gradient(circle at 100% 16%, var(--ds-bg-grad-2) 0, transparent 28%),
+    linear-gradient(180deg, var(--ds-bg) 0%, var(--ds-bg-grad-3) 100%);
+  color: var(--ds-text);
+  font-family: var(--font-manrope), "Segoe UI", sans-serif;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-space-grotesk), "Segoe UI", sans-serif;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}

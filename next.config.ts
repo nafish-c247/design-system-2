@@ -1,10 +1,16 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.STATIC_EXPORT === "true";
+
 const nextConfig: NextConfig = {
-  output: "export",
   images: { unoptimized: true },
-  basePath: "/design-system-2",
-  assetPrefix: "/design-system-2/",
+  ...(isStaticExport
+    ? {
+        output: "export",
+        basePath: "/design-system-2",
+        assetPrefix: "/design-system-2/",
+      }
+    : {}),
 };
 
 export default nextConfig;

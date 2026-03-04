@@ -9,7 +9,9 @@ Reusable, framework-free design system for Next.js projects.
 - `src/grid`: responsive grid classes
 - `src/utilities`: utility classes
 - `src/components`: atoms, molecules, organisms, layouts
-- `src/styles.css`: style entrypoint
+- `src/styles.scss`: SCSS source entrypoint
+- `src/styles.css`: compiled runtime stylesheet
+- `config/themes/*.json`: JSON runtime theme configs (git-versioned)
 
 ## Usage
 

@@ -10,9 +10,9 @@ export default function Home() {
           A full multi-file architecture with tokens, foundations, grid, utilities, atoms, molecules, and organisms.
         </p>
         <div className="ds-flex ds-align-center" style={{ gap: "0.5rem", flexWrap: "wrap" }}>
-          <Badge tone="info">Bootstrap-like Grid</Badge>
-          <Badge tone="success">Framework-Free Components</Badge>
-          <Badge tone="warning">Next.js Compatible</Badge>
+          <Badge tone="info">Bootstrap Grid</Badge>
+          <Badge tone="success">Framework Components</Badge>
+          <Badge tone="warning">Tech Compatible</Badge>
         </div>
       </section>
 

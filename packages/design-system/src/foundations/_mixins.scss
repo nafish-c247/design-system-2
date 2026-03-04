@@ -1,0 +1,12 @@
+@mixin ds-transition($props...) {
+  transition: $props;
+}
+
+@mixin ds-focus-ring {
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: 1px;
+}
+
+@mixin ds-panel-border {
+  border: 1px solid var(--ds-border, #d8e2f0);
+}

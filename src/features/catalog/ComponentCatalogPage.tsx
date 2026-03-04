@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Accordion, Badge, Button, Card, Select, Tooltip } from "@acme/design-system";
+import { Accordion, Badge, Button, Card, Select, ThemeConfigurator, Tooltip } from "@acme/design-system";
 
 export function ComponentCatalogPage() {
   const [team, setTeam] = useState("product");
@@ -10,15 +10,22 @@ export function ComponentCatalogPage() {
     <main className="container ds-p-5">
       <section className="ds-hero">
         <h1 className="ds-title-lg ds-mb-2">Component Catalog</h1>
-        <p className="ds-text-muted ds-mb-4">Organized primitives and patterns for large product teams.</p>
+        <p className="ds-text-muted ds-mb-4">Single source of truth for tokens + runtime theme updates.</p>
         <div className="ds-flex ds-align-center" style={{ gap: "0.5rem", flexWrap: "wrap" }}>
           <span className="ds-chip">Atoms</span>
           <span className="ds-chip">Molecules</span>
           <span className="ds-chip">Organisms</span>
+          <span className="ds-chip">Runtime Tokens</span>
         </div>
       </section>
 
       <div className="row ds-grid-gap">
+        <div className="col-12 ds-mb-4">
+          <Card title="Theme Configurator" subtitle="Change tokens once, update all components instantly">
+            <ThemeConfigurator />
+          </Card>
+        </div>
+
         <div className="col-12 col-lg-6 ds-mb-4">
           <Card title="Buttons + Badges" subtitle="Core action and status primitives">
             <div className="ds-stack">
@@ -61,9 +68,9 @@ export function ComponentCatalogPage() {
           <Card title="FAQ / Knowledge Block" subtitle="Accordion for help center content">
             <Accordion
               items={[
-                { title: "How to add a new component?", content: "Create file in atoms/molecules/organisms and export from src/components/index.ts." },
-                { title: "How to keep consistency?", content: "Always consume token variables and utility classes before introducing new styles." },
-                { title: "How to scale for many teams?", content: "Version components, document usage rules, and enforce lint/test contracts." },
+                { title: "How do runtime updates work?", content: "ThemeProvider writes CSS variables on :root, so all token-based components update immediately." },
+                { title: "Where is the source of truth?", content: "Theme tokens are centralized in packages/design-system/src/theme/themes.ts." },
+                { title: "Can we support multiple brands?", content: "Yes. Add brand presets in themes.ts and switch instantly at runtime." },
               ]}
             />
           </Card>
