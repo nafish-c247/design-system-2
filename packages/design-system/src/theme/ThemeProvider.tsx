@@ -1,19 +1,26 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
-import { createThemeTokens, cssVarMap, getBaseThemeConfig, mergeUIConfig } from "./themes";
-import { DeepPartial, ThemeName, ThemeTokens, UIThemeConfig } from "./types";
-
-type ThemeConfigMap = Record<ThemeName, UIThemeConfig>;
+import {
+  createThemeTokens,
+  createUIThemeConfig,
+  cssVarMap,
+  getBaseColorConfigs,
+  getBaseSharedConfig,
+  mergeColorConfig,
+  mergeSharedConfig,
+} from "./themes";
+import { DeepPartial, SharedStyleConfig, ThemeColorConfig, ThemeName, ThemeTokens, UIThemeConfig } from "./types";
 
 type ThemeContextValue = {
   themeName: ThemeName;
   tokens: ThemeTokens;
   config: UIThemeConfig;
-  allThemeConfigs: ThemeConfigMap;
   setTheme: (themeName: ThemeName) => void;
-  updateConfig: (patch: DeepPartial<UIThemeConfig>) => void;
-  resetCustomizations: () => void;
+  updateSharedConfig: (patch: DeepPartial<SharedStyleConfig>) => void;
+  updateThemeColors: (themeName: ThemeName, patch: DeepPartial<ThemeColorConfig>) => void;
+  resetSharedConfig: () => void;
+  resetThemeColors: (themeName: ThemeName) => void;
   exportConfig: () => string;
   importConfig: (jsonText: string) => { ok: boolean; message: string };
 };
@@ -21,8 +28,8 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const THEME_KEY = "ds-theme-name";
-const CONFIG_MAP_KEY = "ds-ui-theme-config-map";
-const LEGACY_CONFIG_KEY = "ds-ui-theme-config";
+const SHARED_KEY = "ds-ui-theme-shared";
+const COLORS_KEY = "ds-ui-theme-colors";
 
 function applyCssVariables(tokens: ThemeTokens) {
   const root = document.documentElement;
@@ -32,7 +39,7 @@ function applyCssVariables(tokens: ThemeTokens) {
 }
 
 function isThemeName(value: string): value is ThemeName {
-  return value === "default" || value === "dark" || value === "corporate" || value === "clientA";
+  return value === "default" || value === "dark";
 }
 
 function getStoredTheme(defaultTheme: ThemeName): ThemeName {
@@ -48,57 +55,47 @@ function getStoredTheme(defaultTheme: ThemeName): ThemeName {
   if (stored === "light") {
     return "default";
   }
-  if (stored === "brand") {
-    return "corporate";
-  }
 
   return isThemeName(stored) ? stored : defaultTheme;
 }
 
-function getDefaultConfigMap(): ThemeConfigMap {
-  return {
-    default: getBaseThemeConfig("default"),
-    dark: getBaseThemeConfig("dark"),
-    corporate: getBaseThemeConfig("corporate"),
-    clientA: getBaseThemeConfig("clientA"),
-  };
-}
-
-function getStoredConfigMap(): ThemeConfigMap {
-  const defaults = getDefaultConfigMap();
-
+function getStoredSharedConfig(): SharedStyleConfig {
+  const base = getBaseSharedConfig();
   if (typeof window === "undefined") {
-    return defaults;
+    return base;
   }
 
-  const stored = window.localStorage.getItem(CONFIG_MAP_KEY);
+  const stored = window.localStorage.getItem(SHARED_KEY);
   if (!stored) {
-    const legacy = window.localStorage.getItem(LEGACY_CONFIG_KEY);
-    if (!legacy) {
-      return defaults;
-    }
-
-    try {
-      const parsedLegacy = JSON.parse(legacy) as DeepPartial<UIThemeConfig>;
-      return {
-        ...defaults,
-        default: mergeUIConfig(defaults.default, parsedLegacy),
-      };
-    } catch {
-      return defaults;
-    }
+    return base;
   }
 
   try {
-    const parsed = JSON.parse(stored) as Partial<Record<ThemeName, DeepPartial<UIThemeConfig>>>;
+    return mergeSharedConfig(base, JSON.parse(stored) as DeepPartial<SharedStyleConfig>);
+  } catch {
+    return base;
+  }
+}
+
+function getStoredColorConfigs(): Record<ThemeName, ThemeColorConfig> {
+  const base = getBaseColorConfigs();
+  if (typeof window === "undefined") {
+    return base;
+  }
+
+  const stored = window.localStorage.getItem(COLORS_KEY);
+  if (!stored) {
+    return base;
+  }
+
+  try {
+    const parsed = JSON.parse(stored) as Partial<Record<ThemeName, DeepPartial<ThemeColorConfig>>>;
     return {
-      default: mergeUIConfig(defaults.default, parsed.default ?? {}),
-      dark: mergeUIConfig(defaults.dark, parsed.dark ?? {}),
-      corporate: mergeUIConfig(defaults.corporate, parsed.corporate ?? {}),
-      clientA: mergeUIConfig(defaults.clientA, parsed.clientA ?? {}),
+      default: mergeColorConfig(base.default, parsed.default ?? {}),
+      dark: mergeColorConfig(base.dark, parsed.dark ?? {}),
     };
   } catch {
-    return defaults;
+    return base;
   }
 }
 
@@ -110,67 +107,60 @@ export function ThemeProvider({
   defaultTheme?: ThemeName;
 }) {
   const [themeName, setThemeName] = useState<ThemeName>(() => getStoredTheme(defaultTheme));
-  const [themeConfigs, setThemeConfigs] = useState<ThemeConfigMap>(() => getStoredConfigMap());
+  const [sharedConfig, setSharedConfig] = useState<SharedStyleConfig>(() => getStoredSharedConfig());
+  const [colorConfigs, setColorConfigs] = useState<Record<ThemeName, ThemeColorConfig>>(() => getStoredColorConfigs());
 
-  const currentConfig = themeConfigs[themeName];
-  const tokens = useMemo(() => createThemeTokens(themeName, currentConfig), [themeName, currentConfig]);
+  const tokens = useMemo(() => createThemeTokens(themeName, sharedConfig, colorConfigs[themeName]), [themeName, sharedConfig, colorConfigs]);
 
   useEffect(() => {
     applyCssVariables(tokens);
     window.localStorage.setItem(THEME_KEY, themeName);
-    window.localStorage.setItem(CONFIG_MAP_KEY, JSON.stringify(themeConfigs, null, 2));
-  }, [themeName, themeConfigs, tokens]);
+    window.localStorage.setItem(SHARED_KEY, JSON.stringify(sharedConfig, null, 2));
+    window.localStorage.setItem(COLORS_KEY, JSON.stringify(colorConfigs, null, 2));
+  }, [themeName, sharedConfig, colorConfigs, tokens]);
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       themeName,
       tokens,
-      config: currentConfig,
-      allThemeConfigs: themeConfigs,
+      config: createUIThemeConfig(sharedConfig, colorConfigs),
       setTheme: setThemeName,
-      updateConfig: (patch) => {
-        setThemeConfigs((prev) => ({
+      updateSharedConfig: (patch) => {
+        setSharedConfig((prev) => mergeSharedConfig(prev, patch));
+      },
+      updateThemeColors: (name, patch) => {
+        setColorConfigs((prev) => ({
           ...prev,
-          [themeName]: mergeUIConfig(prev[themeName], patch),
+          [name]: mergeColorConfig(prev[name], patch),
         }));
       },
-      resetCustomizations: () => {
-        setThemeConfigs((prev) => ({
-          ...prev,
-          [themeName]: getBaseThemeConfig(themeName),
-        }));
+      resetSharedConfig: () => {
+        setSharedConfig(getBaseSharedConfig());
       },
-      exportConfig: () => JSON.stringify(themeConfigs, null, 2),
+      resetThemeColors: (name) => {
+        const base = getBaseColorConfigs();
+        setColorConfigs((prev) => ({ ...prev, [name]: base[name] }));
+      },
+      exportConfig: () => JSON.stringify(createUIThemeConfig(sharedConfig, colorConfigs), null, 2),
       importConfig: (jsonText) => {
         try {
-          const parsed = JSON.parse(jsonText) as Partial<Record<ThemeName, DeepPartial<UIThemeConfig>>> | DeepPartial<UIThemeConfig>;
-          if (
-            typeof parsed === "object" &&
-            parsed !== null &&
-            ("default" in parsed || "dark" in parsed || "corporate" in parsed || "clientA" in parsed)
-          ) {
-            const map = parsed as Partial<Record<ThemeName, DeepPartial<UIThemeConfig>>>;
-            setThemeConfigs((prev) => ({
-              default: mergeUIConfig(prev.default, map.default ?? {}),
-              dark: mergeUIConfig(prev.dark, map.dark ?? {}),
-              corporate: mergeUIConfig(prev.corporate, map.corporate ?? {}),
-              clientA: mergeUIConfig(prev.clientA, map.clientA ?? {}),
-            }));
-            return { ok: true, message: "Theme map imported." };
+          const parsed = JSON.parse(jsonText) as DeepPartial<UIThemeConfig>;
+          if (parsed.shared) {
+            setSharedConfig((prev) => mergeSharedConfig(prev, parsed.shared ?? {}));
           }
-
-          const single = parsed as DeepPartial<UIThemeConfig>;
-          setThemeConfigs((prev) => ({
-            ...prev,
-            [themeName]: mergeUIConfig(prev[themeName], single),
-          }));
-          return { ok: true, message: `Theme config imported into ${themeName}.` };
+          if (parsed.colors) {
+            setColorConfigs((prev) => ({
+              default: mergeColorConfig(prev.default, parsed.colors?.default ?? {}),
+              dark: mergeColorConfig(prev.dark, parsed.colors?.dark ?? {}),
+            }));
+          }
+          return { ok: true, message: "Theme configuration imported." };
         } catch {
-          return { ok: false, message: "Invalid JSON. Please provide a valid theme config or theme map." };
+          return { ok: false, message: "Invalid JSON. Please provide a valid configuration." };
         }
       },
     }),
-    [themeName, tokens, currentConfig, themeConfigs]
+    [themeName, tokens, sharedConfig, colorConfigs]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

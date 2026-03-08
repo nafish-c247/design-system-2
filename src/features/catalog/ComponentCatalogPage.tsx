@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Accordion, Badge, Button, Card, Select, ThemeConfigurator, Tooltip } from "@acme/design-system";
+import { Accordion, Badge, Button, Card, Select, Tooltip } from "@acme/design-system";
 
 export function ComponentCatalogPage() {
   const [team, setTeam] = useState("product");
@@ -20,12 +20,6 @@ export function ComponentCatalogPage() {
       </section>
 
       <div className="row ds-grid-gap">
-        <div className="col-12 ds-mb-4">
-          <Card title="Theme Configurator" subtitle="Change tokens once, update all components instantly">
-            <ThemeConfigurator />
-          </Card>
-        </div>
-
         <div className="col-12 col-lg-6 ds-mb-4">
           <Card title="Buttons + Badges" subtitle="Core action and status primitives">
             <div className="ds-stack">

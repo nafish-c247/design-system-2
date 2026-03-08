@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Manrope, Space_Grotesk } from "next/font/google";
-import { ThemeProvider } from "@acme/design-system";
+import { ThemeProvider, ThemeSidebarPanel } from "@acme/design-system";
 import "../../packages/design-system/src/styles.css";
 import "./globals.css";
 
@@ -46,6 +46,7 @@ export default function RootLayout({
             </header>
             <div className="ds-main">{children}</div>
           </div>
+          <ThemeSidebarPanel />
         </ThemeProvider>
       </body>
     </html>

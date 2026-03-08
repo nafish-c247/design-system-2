@@ -5,14 +5,16 @@ export function Card({
   subtitle,
   children,
   footer,
+  size = "md",
 }: {
   title?: string;
   subtitle?: string;
   children: ReactNode;
   footer?: ReactNode;
+  size?: "sm" | "md" | "lg";
 }) {
   return (
-    <section className="ds-card">
+    <section className={`ds-card ds-card-size-${size}`}>
       {(title || subtitle) && (
         <header className="ds-card-header">
           {title && <h3 className="ds-title-sm ds-mb-1">{title}</h3>}

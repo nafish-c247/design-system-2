@@ -1,4 +1,4 @@
-export type ThemeName = "default" | "dark" | "corporate" | "clientA";
+export type ThemeName = "default" | "dark";
 
 export type ThemeTokens = {
   bg: string;
@@ -56,6 +56,20 @@ export type ThemeTokens = {
   inputRadius: string;
   inputPadding: string;
   inputBg: string;
+  inputFontSize: string;
+  inputHeight: string;
+  tableCellPaddingY: string;
+  tableCellPaddingX: string;
+  tableFontSize: string;
+  cardSizeSmMinHeight: string;
+  cardSizeMdMinHeight: string;
+  cardSizeLgMinHeight: string;
+  modalRadius: string;
+  modalPaddingY: string;
+  modalPaddingX: string;
+  modalSizeSmWidth: string;
+  modalSizeMdWidth: string;
+  modalSizeLgWidth: string;
   containerMaxWidth: string;
 };
 
@@ -64,17 +78,8 @@ export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
 };
 
-export type UIThemeConfig = {
+export type SharedStyleConfig = {
   global: {
-    colors: {
-      primary: string;
-      secondary: string;
-      success: string;
-      danger: string;
-      surface: string;
-      text: string;
-      border: string;
-    };
     typography: {
       fontSizeBase: string;
       fontSizeSm: string;
@@ -104,8 +109,6 @@ export type UIThemeConfig = {
   button: {
     borderRadius: string;
     padding: string;
-    background: string;
-    textColor: string;
     fontSize: string;
     fontWeight: string;
   };
@@ -113,6 +116,49 @@ export type UIThemeConfig = {
     borderRadius: string;
     shadow: string;
     padding: string;
+    sizeSmMinHeight: string;
+    sizeMdMinHeight: string;
+    sizeLgMinHeight: string;
+  };
+  modal: {
+    borderRadius: string;
+    padding: string;
+    sizeSmWidth: string;
+    sizeMdWidth: string;
+    sizeLgWidth: string;
+  };
+  table: {
+    cellPadding: string;
+    fontSize: string;
+  };
+  form: {
+    inputBorderRadius: string;
+    inputPadding: string;
+    inputFontSize: string;
+    inputHeight: string;
+  };
+  layout: {
+    containerMaxWidth: string;
+  };
+};
+
+export type ThemeColorConfig = {
+  global: {
+    colors: {
+      primary: string;
+      secondary: string;
+      success: string;
+      danger: string;
+      surface: string;
+      text: string;
+      border: string;
+    };
+  };
+  button: {
+    background: string;
+    textColor: string;
+  };
+  card: {
     backgroundTop: string;
     backgroundBottom: string;
   };
@@ -122,11 +168,11 @@ export type UIThemeConfig = {
     borderColor: string;
   };
   form: {
-    inputBorderRadius: string;
-    inputPadding: string;
     inputBg: string;
   };
-  layout: {
-    containerMaxWidth: string;
-  };
+};
+
+export type UIThemeConfig = {
+  shared: SharedStyleConfig;
+  colors: Record<ThemeName, ThemeColorConfig>;
 };

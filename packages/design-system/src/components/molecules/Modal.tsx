@@ -6,11 +6,13 @@ export function Modal({
   onClose,
   title,
   children,
+  size = "md",
 }: {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
+  size?: "sm" | "md" | "lg";
 }) {
   if (!isOpen) {
     return null;
@@ -19,7 +21,7 @@ export function Modal({
   return (
     <div className="ds-modal-overlay" role="presentation" onClick={onClose}>
       <div
-        className="ds-modal"
+        className={`ds-modal ds-modal-size-${size}`}
         role="dialog"
         aria-modal="true"
         aria-label={title}

@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Badge, Button, Card, Select, SwalAlert } from "@acme/design-system";
+import { Badge, Button, Card, Checkbox, Input, Modal, Select, SwalAlert, Textarea } from "@acme/design-system";
 
 export function FormsPage() {
   const [projectType, setProjectType] = useState("dashboard");
   const [priority, setPriority] = useState("normal");
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <main className="container ds-p-5">
@@ -21,8 +22,12 @@ export function FormsPage() {
 
       <div className="row ds-grid-gap">
         <div className="col-12 col-xl-8 ds-mb-4">
-          <Card title="Create Work Item" subtitle="All controls come from the same design-system package">
+          <Card title="Create Work Item" subtitle="All controls come from the same design-system package" size="lg">
             <div className="ds-stack">
+              <Input label="Title" placeholder="Enter task title" />
+
+              <Textarea label="Description" placeholder="Write a clear description" />
+
               <Select
                 label="Project Type"
                 value={projectType}
@@ -45,10 +50,12 @@ export function FormsPage() {
                 ]}
               />
 
+              <Checkbox label="Notify team after submission" defaultChecked />
+
               <div className="ds-flex" style={{ gap: "0.7rem", flexWrap: "wrap" }}>
                 <Button>Submit</Button>
                 <Button variant="outline">Save Draft</Button>
-                <Button variant="ghost">Preview</Button>
+                <Button variant="ghost" onClick={() => setModalOpen(true)}>Open Modal Form</Button>
               </div>
             </div>
           </Card>
@@ -57,7 +64,7 @@ export function FormsPage() {
         <div className="col-12 col-xl-4 ds-mb-4">
           <SwalAlert tone="info" title="Form Rules" message="Validate required fields and sanitize values before API submission." />
           <div style={{ marginTop: "1rem" }}>
-            <Card title="Submission Checklist">
+            <Card title="Submission Checklist" size="sm">
               <div className="ds-stack">
                 <span className="ds-text-muted">1. Required fields completed</span>
                 <span className="ds-text-muted">2. Priority and category selected</span>
@@ -67,6 +74,24 @@ export function FormsPage() {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Quick Create" size="lg">
+        <div className="ds-stack">
+          <Input label="Project Name" placeholder="Example: Payment Revamp" />
+          <Select
+            label="Template"
+            value={projectType}
+            onChange={setProjectType}
+            options={[
+              { label: "Dashboard", value: "dashboard" },
+              { label: "Marketing", value: "marketing" },
+              { label: "Admin", value: "admin" },
+            ]}
+          />
+          <Textarea label="Notes" placeholder="Any onboarding notes for team..." />
+          <Checkbox label="Create starter tasks automatically" defaultChecked />
+        </div>
+      </Modal>
     </main>
   );
 }

@@ -1,9 +1,8 @@
 {
   "themes": {
     "default": "./themes/default.json",
-    "dark": "./themes/dark.json",
-    "corporate": "./themes/corporate.json",
-    "clientA": "./themes/clientA.json"
+    "dark": "./themes/dark.json"
   },
-  "activeTheme": "clientA"
+  "shared": "./themes/shared.json",
+  "activeTheme": "dark"
 }
