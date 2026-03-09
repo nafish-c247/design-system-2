@@ -35,12 +35,32 @@
 }
 
 .ds-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.ds-btn:not(:disabled):hover { transform: translateY(-1px); }
 .ds-btn-primary { background: var(--ds-button-bg); color: var(--ds-button-text); box-shadow: 0 8px 20px color-mix(in srgb, var(--ds-button-bg) 35%, transparent); display: inline-block; }
 .ds-btn-primary:hover { background: color-mix(in srgb, var(--ds-button-bg) 85%, #000); }
 .ds-btn-outline { background: var(--ds-surface); color: var(--ds-primary); border-color: color-mix(in srgb, var(--ds-primary) 35%, var(--ds-border)); }
 .ds-btn-outline:hover { background: var(--ds-surface-alt); }
 .ds-btn-ghost { background: var(--ds-surface-alt); color: var(--ds-text); }
+.ds-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ds-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ds-icon-btn:hover {
+  border-color: var(--ds-border);
+  background: var(--ds-surface-alt);
+}
+.ds-form-error {
+  color: var(--ds-danger);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
 
 .ds-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.22rem 0.58rem; font-size: var(--ds-font-size-sm); font-weight: var(--ds-font-weight-bold); border: 1px solid transparent; }
 .ds-badge-success { background: color-mix(in srgb, var(--ds-success) 20%, transparent); color: var(--ds-success); }
@@ -91,6 +111,23 @@
 .ds-modal-body,
 .ds-modal-footer { padding: var(--ds-modal-padding-y) var(--ds-modal-padding-x); }
 .ds-modal-header { border-bottom: 1px solid var(--ds-border); }
+.ds-modal-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ds-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ds-modal-close:hover {
+  border-color: var(--ds-border);
+  color: var(--ds-text);
+  background: var(--ds-surface-alt);
+}
 .ds-modal-footer { border-top: 1px solid var(--ds-border); display: flex; justify-content: flex-end; gap: 0.6rem; }
 
 .ds-modal-size-sm { width: min(var(--ds-modal-size-sm-width), 100%); }
@@ -180,6 +217,12 @@ input[type="range"] { width: 100%; accent-color: var(--ds-primary); }
 .ds-textarea {
   min-height: calc(var(--ds-input-height) * 2.2);
   resize: vertical;
+}
+
+.ds-input[aria-invalid="true"],
+.ds-textarea[aria-invalid="true"],
+.ds-select[aria-invalid="true"] {
+  border-color: color-mix(in srgb, var(--ds-danger) 65%, var(--ds-border));
 }
 
 .ds-checkbox-field {

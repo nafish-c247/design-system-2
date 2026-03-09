@@ -390,18 +390,46 @@ h4 {
 
 .ds-nav-link {
   display: inline-flex;
-  padding: 0.45rem 0.72rem;
-  border-radius: 0.55rem;
-  border: 1px solid transparent;
+  align-items: center;
+  padding: 0.85rem 0.2rem 0.75rem;
+  border-bottom: 2px solid transparent;
   font-weight: 600;
   color: var(--ds-nav-link);
-  transition: 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .ds-nav-link:hover {
-  border-color: var(--ds-border);
-  background: var(--ds-nav-link-hover-bg);
   color: var(--ds-nav-link-hover-text);
+  border-bottom-color: color-mix(in srgb, var(--ds-primary) 30%, transparent);
+}
+
+.ds-nav-link-active {
+  color: var(--ds-primary);
+  border-bottom-color: var(--ds-primary);
+}
+
+.ds-theme-toggle {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ds-theme-toggle:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ds-theme-toggle-icon {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.ds-theme-toggle-label {
+  font-weight: 700;
 }
 
 .ds-main {
@@ -480,10 +508,6 @@ h4 {
   cursor: not-allowed;
 }
 
-.ds-btn:not(:disabled):hover {
-  transform: translateY(-1px);
-}
-
 .ds-btn-primary {
   background: var(--ds-button-bg);
   color: var(--ds-button-text);
@@ -508,6 +532,30 @@ h4 {
 .ds-btn-ghost {
   background: var(--ds-surface-alt);
   color: var(--ds-text);
+}
+
+.ds-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ds-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ds-icon-btn:hover {
+  border-color: var(--ds-border);
+  background: var(--ds-surface-alt);
+}
+
+.ds-form-error {
+  color: var(--ds-danger);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .ds-badge {
@@ -720,6 +768,25 @@ h4 {
   border-bottom: 1px solid var(--ds-border);
 }
 
+.ds-modal-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ds-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ds-modal-close:hover {
+  border-color: var(--ds-border);
+  color: var(--ds-text);
+  background: var(--ds-surface-alt);
+}
+
 .ds-modal-footer {
   border-top: 1px solid var(--ds-border);
   display: flex;
@@ -825,6 +892,12 @@ input[type=range] {
 .ds-textarea {
   min-height: calc(var(--ds-input-height) * 2.2);
   resize: vertical;
+}
+
+.ds-input[aria-invalid=true],
+.ds-textarea[aria-invalid=true],
+.ds-select[aria-invalid=true] {
+  border-color: color-mix(in srgb, var(--ds-danger) 65%, var(--ds-border));
 }
 
 .ds-checkbox-field {

@@ -1,9 +1,12 @@
+import { SelectHTMLAttributes } from "react";
+
 export function Select({
   label,
   options,
   value,
   onChange,
-}: {
+  ...props
+}: Omit<SelectHTMLAttributes<HTMLSelectElement>, "onChange" | "value"> & {
   label: string;
   options: { label: string; value: string }[];
   value: string;
@@ -12,7 +15,7 @@ export function Select({
   return (
     <label className="ds-stack">
       <span className="ds-text-muted">{label}</span>
-      <select className="ds-select" value={value} onChange={(event) => onChange(event.target.value)}>
+      <select className="ds-select" value={value} onChange={(event) => onChange(event.target.value)} {...props}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

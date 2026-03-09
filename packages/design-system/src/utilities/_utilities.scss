@@ -30,8 +30,35 @@
 .ds-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 800; }
 .ds-brand-mark { width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg, var(--ds-primary), var(--ds-accent)); box-shadow: var(--ds-shadow-sm); }
 .ds-nav-links { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-.ds-nav-link { display: inline-flex; padding: 0.45rem 0.72rem; border-radius: 0.55rem; border: 1px solid transparent; font-weight: 600; color: var(--ds-nav-link); transition: 0.2s ease; }
-.ds-nav-link:hover { border-color: var(--ds-border); background: var(--ds-nav-link-hover-bg); color: var(--ds-nav-link-hover-text); }
+.ds-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 0.2rem 0.75rem;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  color: var(--ds-nav-link);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.ds-nav-link:hover { color: var(--ds-nav-link-hover-text); border-bottom-color: color-mix(in srgb, var(--ds-primary) 30%, transparent); }
+.ds-nav-link-active {
+  color: var(--ds-primary);
+  border-bottom-color: var(--ds-primary);
+}
+.ds-theme-toggle {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.ds-theme-toggle:hover {
+  background: transparent;
+  border-color: transparent;
+}
+.ds-theme-toggle-icon { display: inline-flex; line-height: 0; }
+.ds-theme-toggle-label { font-weight: 700; }
 .ds-main { padding-bottom: 2rem; }
 .ds-grid-gap { row-gap: 1rem; }
 .ds-chip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.28rem 0.65rem; border-radius: 999px; border: 1px solid var(--ds-chip-border); color: var(--ds-chip-text); background: var(--ds-chip-bg); font-size: 0.78rem; font-weight: 700; }

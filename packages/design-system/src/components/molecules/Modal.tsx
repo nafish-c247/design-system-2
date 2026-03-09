@@ -7,12 +7,14 @@ export function Modal({
   title,
   children,
   size = "md",
+  footer,
 }: {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
   size?: "sm" | "md" | "lg";
+  footer?: ReactNode | null;
 }) {
   if (!isOpen) {
     return null;
@@ -29,17 +31,26 @@ export function Modal({
       >
         <header className="ds-modal-header ds-flex ds-align-center ds-justify-between">
           <h3 className="ds-title-sm">{title}</h3>
-          <button className="ds-btn ds-btn-ghost" onClick={onClose}>
-            Close
+          <button type="button" className="ds-modal-close" onClick={onClose} aria-label="Close modal">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
         </header>
         <div className="ds-modal-body">{children}</div>
-        <footer className="ds-modal-footer">
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button onClick={onClose}>Save</Button>
-        </footer>
+        {footer === null ? null : (
+          <footer className="ds-modal-footer">
+            {footer ?? (
+              <>
+                <Button variant="outline" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button onClick={onClose}>Save</Button>
+              </>
+            )}
+          </footer>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import { ThemeProvider, ThemeSidebarPanel } from "@acme/design-system";
+import { AppHeader } from "./AppHeader";
 import "../../packages/design-system/src/styles.css";
 import "./globals.css";
 
@@ -30,20 +30,7 @@ export default function RootLayout({
       <body className={`${manrope.variable} ${spaceGrotesk.variable}`}>
         <ThemeProvider defaultTheme="default">
           <div className="ds-shell">
-            <header className="ds-nav">
-              <div className="container ds-nav-inner">
-                <div className="ds-brand">
-                  <span className="ds-brand-mark" />
-                  <span>Design System</span>
-                </div>
-                <nav className="ds-nav-links">
-                  <Link className="ds-nav-link" href="/">Home</Link>
-                  <Link className="ds-nav-link" href="/dashboard">Dashboard</Link>
-                  <Link className="ds-nav-link" href="/components">Components</Link>
-                  <Link className="ds-nav-link" href="/forms">Forms</Link>
-                </nav>
-              </div>
-            </header>
+            <AppHeader />
             <div className="ds-main">{children}</div>
           </div>
           <ThemeSidebarPanel />
