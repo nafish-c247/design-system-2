@@ -748,14 +748,18 @@ h4 {
   background: rgba(10, 28, 48, 0.48);
   padding: 1rem;
   z-index: 999;
+  overflow: hidden;
 }
 
 .ds-modal {
   width: min(var(--ds-modal-size-md-width), 100%);
+  max-height: calc(100dvh - 2rem);
   background: var(--ds-surface-elevated);
   border-radius: var(--ds-modal-radius);
   border: 1px solid var(--ds-border);
   box-shadow: var(--ds-shadow-lg);
+  display: flex;
+  flex-direction: column;
 }
 
 .ds-modal-header,
@@ -766,6 +770,38 @@ h4 {
 
 .ds-modal-header {
   border-bottom: 1px solid var(--ds-border);
+}
+
+.ds-modal-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.ds-modal-body {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ds-primary) 45%, transparent) transparent;
+}
+
+.ds-modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ds-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ds-modal-body::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ds-primary) 35%, var(--ds-surface-alt));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.ds-modal-body::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--ds-primary) 55%, var(--ds-surface-alt));
+  background-clip: padding-box;
 }
 
 .ds-modal-close {
@@ -794,6 +830,11 @@ h4 {
   gap: 0.6rem;
 }
 
+.ds-modal-header,
+.ds-modal-footer {
+  flex-shrink: 0;
+}
+
 .ds-modal-size-sm {
   width: min(var(--ds-modal-size-sm-width), 100%);
 }
@@ -806,6 +847,15 @@ h4 {
   width: min(var(--ds-modal-size-lg-width), 100%);
 }
 
+@media (max-width: 767px) {
+  .ds-modal-overlay {
+    place-items: start center;
+    padding: 0.75rem;
+  }
+  .ds-modal {
+    max-height: calc(100dvh - 1.5rem);
+  }
+}
 input[type=color],
 input[type=text],
 textarea {
